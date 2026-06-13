@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { ButtonLink } from "@/components/button-link";
 import { siteConfig } from "@/lib/site";
 
@@ -160,8 +160,6 @@ type GalleryItem = (typeof galleryItems)[number];
 
 export function GalleryShowcase() {
   const [activeCategory, setActiveCategory] = useState<(typeof categories)[number]>("All");
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
-  const [touchStart, setTouchStart] = useState<number | null>(null);
 
   const filteredItems = useMemo(() => {
     if (activeCategory === "All") {
@@ -170,59 +168,6 @@ export function GalleryShowcase() {
 
     return galleryItems.filter((item) => item.category === activeCategory);
   }, [activeCategory]);
-
-  const activeItem = activeIndex === null ? null : filteredItems[activeIndex];
-
-  const openLightbox = (index: number) => setActiveIndex(index);
-  const closeLightbox = () => setActiveIndex(null);
-  const showPrevious = useCallback(() => {
-    setActiveIndex((current) =>
-      current === null ? current : (current - 1 + filteredItems.length) % filteredItems.length
-    );
-  }, [filteredItems.length]);
-  const showNext = useCallback(() => {
-    setActiveIndex((current) => (current === null ? current : (current + 1) % filteredItems.length));
-  }, [filteredItems.length]);
-
-  useEffect(() => {
-    if (activeIndex === null) {
-      return;
-    }
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        closeLightbox();
-      }
-
-      if (event.key === "ArrowLeft") {
-        showPrevious();
-      }
-
-      if (event.key === "ArrowRight") {
-        showNext();
-      }
-    };
-
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [activeIndex, showNext, showPrevious]);
-
-  const handlePointerUp = (clientX: number) => {
-    if (touchStart === null) {
-      return;
-    }
-
-    const delta = clientX - touchStart;
-    if (Math.abs(delta) > 48) {
-      if (delta > 0) {
-        showPrevious();
-      } else {
-        showNext();
-      }
-    }
-
-    setTouchStart(null);
-  };
 
   return (
     <div className="gallery-showcase">
@@ -234,7 +179,6 @@ export function GalleryShowcase() {
             aria-pressed={activeCategory === category}
             onClick={() => {
               setActiveCategory(category);
-              setActiveIndex(null);
             }}
           >
             {category}
@@ -243,8 +187,8 @@ export function GalleryShowcase() {
       </div>
 
       <div className="gallery-masonry" aria-live="polite">
-        {filteredItems.map((item, index) => (
-          <GalleryTile key={item.title} item={item} index={index} onOpen={openLightbox} />
+        {filteredItems.map((item) => (
+          <GalleryTile key={item.title} item={item} />
         ))}
       </div>
 
@@ -337,35 +281,18 @@ export function GalleryShowcase() {
         </p>
       </article>
 
-      {activeItem ? (
-        <Lightbox
-          item={activeItem}
-          onClose={closeLightbox}
-          onPrevious={showPrevious}
-          onNext={showNext}
-          onPointerDown={setTouchStart}
-          onPointerUp={handlePointerUp}
-        />
-      ) : null}
     </div>
   );
 }
 
 function GalleryTile({
-  item,
-  index,
-  onOpen
+  item
 }: {
   item: GalleryItem;
-  index: number;
-  onOpen: (index: number) => void;
 }) {
   return (
-    <button
-      type="button"
+    <article
       className={`gallery-tile gallery-tile--${item.size}`}
-      onClick={() => onOpen(index)}
-      aria-label={`Open ${item.title} gallery image`}
     >
       <Image
         src={item.image}
@@ -377,59 +304,7 @@ function GalleryTile({
       />
       <span>
         <strong>{item.title}</strong>
-        <small>{item.category}</small>
       </span>
-    </button>
-  );
-}
-
-function Lightbox({
-  item,
-  onClose,
-  onPrevious,
-  onNext,
-  onPointerDown,
-  onPointerUp
-}: {
-  item: GalleryItem;
-  onClose: () => void;
-  onPrevious: () => void;
-  onNext: () => void;
-  onPointerDown: (clientX: number) => void;
-  onPointerUp: (clientX: number) => void;
-}) {
-  return (
-    <div className="gallery-lightbox" role="dialog" aria-modal="true" aria-label={item.title}>
-      <button type="button" className="gallery-lightbox__backdrop" onClick={onClose} aria-label="Close gallery lightbox" />
-      <div className="gallery-lightbox__panel">
-        <button type="button" className="gallery-lightbox__close" onClick={onClose} aria-label="Close image">
-          ×
-        </button>
-        <button type="button" className="gallery-lightbox__nav gallery-lightbox__nav--prev" onClick={onPrevious} aria-label="Previous image">
-          ‹
-        </button>
-        <div
-          className="gallery-lightbox__image"
-          onPointerDown={(event) => onPointerDown(event.clientX)}
-          onPointerUp={(event) => onPointerUp(event.clientX)}
-        >
-          <Image
-            src={item.image}
-            width={920}
-            height={620}
-            loading="lazy"
-            sizes="90vw"
-            alt={item.alt}
-          />
-          <div>
-            <strong>{item.title}</strong>
-            <span>{item.category}</span>
-          </div>
-        </div>
-        <button type="button" className="gallery-lightbox__nav gallery-lightbox__nav--next" onClick={onNext} aria-label="Next image">
-          ›
-        </button>
-      </div>
-    </div>
+    </article>
   );
 }

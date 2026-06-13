@@ -49,7 +49,7 @@ const services = [
     description:
       "Professional guidance for selecting, fitting and maintaining contact lenses comfortably and safely.",
     benefits: ["Expert Lens Selection", "Proper Fitting", "Safe Lens Usage"],
-    cta: "Get Contact Lens Advice",
+    cta: "Ask on WhatsApp",
     seoLine: "Designed for Contact Lenses, Contact Lens Clinic support and complete Vision Care."
   },
   {
@@ -83,7 +83,7 @@ const services = [
     description:
       "Advanced lenses designed to reduce blue light exposure from digital devices and improve visual comfort.",
     benefits: ["Reduced Digital Strain", "Improved Comfort", "Better Daily Vision"],
-    cta: "Explore Lens Options",
+    cta: "Ask on WhatsApp",
     seoLine: "A smart choice for Blue Cut Lenses, Blue Light Protection and Computer Glasses."
   },
   {
@@ -94,7 +94,7 @@ const services = [
     description:
       "High-quality anti-glare lenses that improve visual clarity and reduce reflections during daily activities.",
     benefits: ["Sharper Vision", "Reduced Glare", "Better Driving Comfort"],
-    cta: "View Lens Solutions",
+    cta: "Ask on WhatsApp",
     seoLine: "Useful for Anti Glare Glasses, Optical Solutions and Vision Correction."
   },
   {
@@ -105,7 +105,7 @@ const services = [
     description:
       "Explore a stylish collection of quality eyewear frames designed for comfort, durability and everyday confidence.",
     benefits: ["Premium Designs", "Comfortable Fit", "Durable Materials"],
-    cta: "Browse Frames",
+    cta: "Ask on WhatsApp",
     seoLine: "Available through our Optical Store in Kulasekharam for Eyeglasses and Optical Frames."
   },
   {
@@ -116,7 +116,7 @@ const services = [
     description:
       "UV-protective sunglasses designed to safeguard your eyes while enhancing visual comfort outdoors.",
     benefits: ["UV Protection", "Eye Safety", "Stylish Designs"],
-    cta: "Explore Collection",
+    cta: "Ask on WhatsApp",
     seoLine: "Explore Sunglasses, UV Protection Glasses and Premium Eyewear options."
   }
 ] as const;
@@ -146,7 +146,7 @@ const symptomProblems = [
       "Holding books farther away or struggling to read fine print may indicate age-related vision changes.",
     label: "Common Signs",
     causes: ["Eye Fatigue", "Reading Difficulty", "Frequent Prescription Changes"],
-    cta: "Get Eye Checkup"
+    cta: "Ask on WhatsApp"
   },
   {
     icon: "moon",
@@ -164,7 +164,7 @@ const symptomProblems = [
       "Persistent dryness, burning sensation or irritation may affect comfort and daily activities.",
     label: "Common Signs",
     causes: ["Burning Eyes", "Redness", "Discomfort"],
-    cta: "Consult Eye Expert"
+    cta: "Ask on WhatsApp"
   },
   {
     icon: "medicalShield",
@@ -872,11 +872,10 @@ export function ServicesSection() {
                 <div className="service-card__icon">
                   <ServiceIcon name={service.icon} />
                 </div>
-                <span>{String(index + 1).padStart(2, "0")}</span>
+                <h3>{service.title}</h3>
               </div>
 
               <div className="service-card__content">
-                <h3>{service.title}</h3>
                 <p>{service.description}</p>
               </div>
 
@@ -1009,11 +1008,13 @@ export function EyeProblemsSection() {
           {symptomProblems.map((problem, index) => (
             <Reveal key={problem.title} delay={index * 0.04}>
               <article className="symptom-card">
-                <div className="symptom-card__icon">
-                  <SymptomIcon name={problem.icon} />
+                <div className="symptom-card__top">
+                  <div className="symptom-card__icon">
+                    <SymptomIcon name={problem.icon} />
+                  </div>
+                  <h3>{problem.title}</h3>
                 </div>
                 <div className="symptom-card__content">
-                  <h3>{problem.title}</h3>
                   <p>{problem.description}</p>
                   <strong>{problem.label}</strong>
                   <ul aria-label={`${problem.title} ${problem.label.toLowerCase()}`}>
@@ -1228,7 +1229,11 @@ export function ContactSection() {
                 <span aria-hidden="true"><ContactIcon name="phone" /></span>
                 <div>
                   <strong>Phone Number</strong>
-                  <p>{siteConfig.phoneDisplay}</p>
+                  <p>
+                    <a href={siteConfig.callHref} aria-label="Call Blue Phoenix Eye Care and Opticals">
+                      {siteConfig.phoneDisplay}
+                    </a>
+                  </p>
                 </div>
               </article>
               <article className="contact-detail-card">
@@ -1252,13 +1257,19 @@ export function ContactSection() {
                   </dl>
                 </div>
               </article>
-              <article className="contact-detail-card contact-detail-card--rating">
+              <a
+                className="contact-detail-card contact-detail-card--rating"
+                href={siteConfig.googleReviewsHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Open Blue Phoenix Eye Care and Opticals Google Business profile"
+              >
                 <span aria-hidden="true"><ContactIcon name="star" /></span>
                 <div>
                   <strong>Google Rating</strong>
                   <p>5.0 <span className="rating-star">★</span> · Local patient feedback</p>
                 </div>
-              </article>
+              </a>
             </div>
 
             <div className="contact-assurance-list" aria-label="Contact support highlights">
@@ -1350,7 +1361,7 @@ export function ContactSection() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Design and Developed by Sintyz.com
+            Designed and Developed by Sintyz.com
           </a>
         </div>
       </footer>

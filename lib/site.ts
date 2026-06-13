@@ -28,8 +28,7 @@ export const siteConfig = {
   whatsappHref:
     "https://wa.me/919445887612?text=Hello%2C%20I%20would%20like%20to%20ask%20about%20eye%20care%20services.",
   directionsHref: "https://maps.app.goo.gl/7V8FaHBFbkCMz1vx8",
-  googleReviewsHref:
-    "https://www.google.com/search?q=Blue%20Phoenix%20Eye%20Care%20%26%20Opticals%20Kulasekharam%20reviews",
+  googleReviewsHref: "https://maps.app.goo.gl/rojuqmQfvdHRz5Dr7",
   mapEmbedSrc:
     "https://www.google.com/maps?q=8.3619376,77.2934769&z=17&output=embed"
 };

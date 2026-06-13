@@ -24,7 +24,12 @@ function ActionIcon({ name }: { name: (typeof mobileActions)[number]["icon"] }) 
   }
 
   return (
-    <svg className="mobile-actions__icon" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+    <svg
+      className="mobile-actions__icon mobile-actions__icon--whatsapp"
+      viewBox="0 0 24 24"
+      focusable="false"
+      aria-hidden="true"
+    >
       <path
         d="M4.5 18.8 5.4 15.7A7.6 7.6 0 1 1 8.4 18l-3.9.8Z"
         fill="none"
