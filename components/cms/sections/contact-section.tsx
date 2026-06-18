@@ -9,6 +9,7 @@ import { SectionShell } from "@/components/section-shell";
 import { ContactIcon } from "@/components/sections";
 import { buildCallHref } from "@/lib/sanity/resolveCta";
 import { footerDeveloperCredit } from "@/lib/site-credit";
+import { FooterSocialLinks } from "@/components/cms/footer-social-links";
 import type { ContactSectionData, FooterData, HeaderData, SiteSettings } from "@/lib/sanity/types";
 
 type Props = {
@@ -182,6 +183,7 @@ export function ContactSectionCms({ data, settings, header, footer, footerSlot }
                 />
               </a>
               <p>{footer.description}</p>
+              <FooterSocialLinks settings={settings} />
             </div>
             <div>
               <h3>Quick Links</h3>

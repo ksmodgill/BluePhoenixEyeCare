@@ -3593,6 +3593,37 @@ h6 {
   font-weight: 700;
 }
 
+.site-footer__social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.site-footer__social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-top: 0;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  transition: background-color 180ms ease, transform 180ms ease;
+}
+
+.site-footer__social-link svg {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.site-footer__social-link:hover,
+.site-footer__social-link:focus-visible {
+  background: rgba(255, 255, 255, 0.18);
+  transform: translateY(-1px);
+}
+
 .site-footer__bottom {
   display: flex;
   align-items: center;
