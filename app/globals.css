@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 :root {
   --color-secondary: #082B7A;
   --color-primary: #0D47C7;
@@ -4342,4 +4344,23 @@ h6 {
   .faq-item p {
     animation: none !important;
   }
+}
+
+.preview-banner {
+  position: sticky;
+  top: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 0.65rem 1rem;
+  background: #082b7a;
+  color: #fff;
+  font-size: 0.875rem;
+}
+
+.preview-banner a {
+  color: #8fe8ff;
+  text-decoration: underline;
 }

@@ -1,12 +1,13 @@
 import Link from "next/link";
-import { siteConfig } from "@/lib/site";
+import { buildCallHref, buildWhatsappHref } from "@/lib/sanity/resolveCta";
+import type { GlobalUiData, SiteSettings } from "@/lib/sanity/types";
 
-const mobileActions = [
-  { label: "Call", icon: "phone", href: siteConfig.callHref },
-  { label: "WhatsApp", icon: "whatsapp", href: siteConfig.whatsappHref }
-] as const;
+type MobileActionsProps = {
+  settings: SiteSettings;
+  globalUi: GlobalUiData;
+};
 
-function ActionIcon({ name }: { name: (typeof mobileActions)[number]["icon"] }) {
+function ActionIcon({ name }: { name: "phone" | "whatsapp" }) {
   if (name === "phone") {
     return (
       <svg className="mobile-actions__icon" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
@@ -51,14 +52,29 @@ function ActionIcon({ name }: { name: (typeof mobileActions)[number]["icon"] }) 
   );
 }
 
-export function MobileActions() {
+export function MobileActions({ settings, globalUi }: MobileActionsProps) {
+  const actions = [
+    {
+      label: globalUi.stickyBarCallLabel || "Call",
+      icon: "phone" as const,
+      href: buildCallHref(settings.primaryPhone)
+    },
+    {
+      label: globalUi.stickyBarWhatsappLabel || "WhatsApp",
+      icon: "whatsapp" as const,
+      href: buildWhatsappHref(settings.whatsappNumber, settings.whatsappDefaultMessage)
+    }
+  ];
+
   return (
     <aside className="mobile-actions" aria-label="Quick contact actions">
-      <div className="mobile-actions__intro">
-        <strong>Need eye care help?</strong>
-      </div>
+      {globalUi.stickyBarHeading ? (
+        <div className="mobile-actions__intro">
+          <strong>{globalUi.stickyBarHeading}</strong>
+        </div>
+      ) : null}
       <div className="mobile-actions__links">
-        {mobileActions.map((action) => (
+        {actions.map((action) => (
           <Link key={action.label} href={action.href} aria-label={`${action.label} Blue Phoenix`}>
             <span aria-hidden="true"><ActionIcon name={action.icon} /></span>
             {action.label}

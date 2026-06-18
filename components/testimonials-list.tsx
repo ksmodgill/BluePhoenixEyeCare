@@ -11,9 +11,14 @@ type Testimonial = {
 type TestimonialsListProps = {
   initialReviews: readonly Testimonial[];
   moreReviews: readonly Testimonial[];
+  aggregateBadge?: string;
 };
 
-export function TestimonialsList({ initialReviews, moreReviews }: TestimonialsListProps) {
+export function TestimonialsList({
+  initialReviews,
+  moreReviews,
+  aggregateBadge = "Rated by Local Patients"
+}: TestimonialsListProps) {
   const [showAll, setShowAll] = useState(false);
 
   const visibleReviews = useMemo(
@@ -25,7 +30,7 @@ export function TestimonialsList({ initialReviews, moreReviews }: TestimonialsLi
     <div className="testimonials-showcase">
       <div className="testimonials-badge" aria-label="Five star rated by local patients">
         <span className="review-stars" aria-hidden="true">★★★★★</span>
-        <strong>Rated by Local Patients</strong>
+        <strong>{aggregateBadge}</strong>
       </div>
 
       <div className="testimonials-grid" aria-live="polite">

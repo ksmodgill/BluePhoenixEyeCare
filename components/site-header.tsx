@@ -1,12 +1,19 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useEffect, useState } from "react";
-import { ButtonLink } from "@/components/button-link";
-import { navItems, siteConfig } from "@/lib/site";
+import { CtaButtonLink } from "@/components/cms/cta-button-link";
+import { NavLink } from "@/components/cms/nav-link";
+import { resolveBrandImage } from "@/lib/sanity/brand";
+import type { HeaderData, SiteSettings } from "@/lib/sanity/types";
 
-export function SiteHeader() {
+type SiteHeaderProps = {
+  settings: SiteSettings;
+  header: HeaderData;
+};
+
+export function SiteHeader({ settings, header }: SiteHeaderProps) {
+  const logoSrc = resolveBrandImage(settings, header);
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeHref, setActiveHref] = useState("#home");
@@ -14,14 +21,16 @@ export function SiteHeader() {
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 18);
     handleScroll();
-
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
-    const sections = navItems
-      .map((item) => document.querySelector(item.href))
+    const sections = header.navigation
+      .map((item) => {
+        const target = item.sectionId ? `#${item.sectionId}` : item.url;
+        return target?.startsWith("#") ? document.querySelector(target) : null;
+      })
       .filter((section): section is Element => Boolean(section));
 
     const observer = new IntersectionObserver(
@@ -39,7 +48,7 @@ export function SiteHeader() {
 
     sections.forEach((section) => observer.observe(section));
     return () => observer.disconnect();
-  }, []);
+  }, [header.navigation]);
 
   useEffect(() => {
     if (!isOpen) {
@@ -62,29 +71,34 @@ export function SiteHeader() {
         Skip to content
       </a>
       <div className="container site-header__inner">
-        <Link className="brand brand--image" href="#home" aria-label={`${siteConfig.name} home`}>
+        <a className="brand brand--image" href="#home" aria-label={`${settings.clinicName} home`}>
           <Image
-            src="/images/Logo.png"
+            src={logoSrc}
             width={260}
             height={71}
             priority
             sizes="(max-width: 760px) 190px, 260px"
-            alt="Blue Phoenix Eye Care and Opticals logo"
+            alt={header.logoOverride?.alt || settings.logo?.alt || `${settings.clinicName} logo`}
             className="brand__logo"
           />
-        </Link>
+        </a>
 
         <nav className="desktop-nav" aria-label="Primary navigation">
-          {navItems.map((item) => (
-            <Link key={item.href} href={item.href} aria-current={activeHref === item.href ? "page" : undefined}>
-              {item.label}
-            </Link>
-          ))}
+          {header.navigation.map((item) => {
+            const href = item.sectionId ? `#${item.sectionId}` : item.url || "#";
+            return (
+              <NavLink
+                key={item.label}
+                item={item}
+                aria-current={activeHref === href ? "page" : undefined}
+              />
+            );
+          })}
         </nav>
 
         <div className="site-header__actions">
-          <ButtonLink href={siteConfig.callHref}>Call Now</ButtonLink>
-          <ButtonLink href={siteConfig.whatsappHref} variant="secondary">WhatsApp</ButtonLink>
+          <CtaButtonLink cta={header.primaryCta} settings={settings} fallbackLabel="Call Now" />
+          <CtaButtonLink cta={header.secondaryCta} settings={settings} fallbackLabel="WhatsApp" />
           <button
             className="menu-button"
             type="button"
@@ -104,27 +118,29 @@ export function SiteHeader() {
         className={`mobile-nav ${isOpen ? "mobile-nav--open" : ""}`}
         aria-label="Mobile navigation"
       >
-        <div className="mobile-nav__intro">
-          <span>Blue Phoenix Eye Care</span>
-          <strong>How can we help your vision today?</strong>
-        </div>
-        {navItems.map((item) => (
-          <Link
-            key={item.href}
-            href={item.href}
-            aria-current={activeHref === item.href ? "page" : undefined}
+        {header.mobileMenuIntro ? (
+          <div className="mobile-nav__intro">
+            <span>{header.mobileMenuIntro.eyebrow}</span>
+            <strong>{header.mobileMenuIntro.heading}</strong>
+          </div>
+        ) : null}
+        {header.navigation.map((item) => (
+          <NavLink
+            key={item.label}
+            item={item}
             onClick={() => setIsOpen(false)}
-          >
-            {item.label}
-          </Link>
+            aria-current={
+              activeHref === (item.sectionId ? `#${item.sectionId}` : item.url) ? "page" : undefined
+            }
+          />
         ))}
         <div className="mobile-nav__actions">
-          <ButtonLink href={siteConfig.callHref} onClick={() => setIsOpen(false)}>
-            Call Now
-          </ButtonLink>
-          <ButtonLink href={siteConfig.whatsappHref} variant="secondary" onClick={() => setIsOpen(false)}>
-            WhatsApp
-          </ButtonLink>
+          <CtaButtonLink cta={header.primaryCta} settings={settings} onClick={() => setIsOpen(false)} />
+          <CtaButtonLink
+            cta={header.secondaryCta}
+            settings={settings}
+            onClick={() => setIsOpen(false)}
+          />
         </div>
       </nav>
     </header>

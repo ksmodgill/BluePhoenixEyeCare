@@ -378,7 +378,7 @@ const promiseItems = [
   "Trusted Vision Care"
 ];
 
-function FeatureIcon({ name }: { name: (typeof whyFeatures)[number]["icon"] }) {
+export function FeatureIcon({ name }: { name: string }) {
   const commonProps = {
     width: 30,
     height: 30,
@@ -442,7 +442,7 @@ function FeatureIcon({ name }: { name: (typeof whyFeatures)[number]["icon"] }) {
   );
 }
 
-function ServiceIcon({ name }: { name: (typeof services)[number]["icon"] }) {
+export function ServiceIcon({ name }: { name: string }) {
   const commonProps = {
     width: 34,
     height: 34,
@@ -537,7 +537,7 @@ function ServiceIcon({ name }: { name: (typeof services)[number]["icon"] }) {
   );
 }
 
-function SymptomIcon({ name }: { name: (typeof symptomProblems)[number]["icon"] | "alert" }) {
+export function SymptomIcon({ name }: { name: string }) {
   const commonProps = {
     width: 32,
     height: 32,
@@ -612,7 +612,7 @@ function SymptomIcon({ name }: { name: (typeof symptomProblems)[number]["icon"] 
   );
 }
 
-function ContactIcon({ name }: { name: "location" | "phone" | "whatsapp" | "clock" | "star" }) {
+export function ContactIcon({ name }: { name: "location" | "phone" | "whatsapp" | "clock" | "star" }) {
   const commonProps = {
     width: 24,
     height: 24,

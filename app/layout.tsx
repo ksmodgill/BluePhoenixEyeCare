@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Poppins } from "next/font/google";
-import { siteConfig } from "@/lib/site";
+import { PreviewBanner } from "@/components/preview-banner";
+import { getSiteSettings } from "@/lib/sanity/fetchers";
+import { resolveFaviconUrl } from "@/lib/sanity/brand";
 import "./globals.css";
 
 const inter = Inter({
@@ -16,55 +18,60 @@ const poppins = Poppins({
   display: "swap"
 });
 
-export const metadata: Metadata = {
-  metadataBase: new URL(siteConfig.url),
-  title: {
-    default: "Blue Phoenix Eye Care & Opticals | Eye Care Clinic in Kulasekharam",
-    template: "%s | Blue Phoenix Eye Care & Opticals"
-  },
-  description: siteConfig.description,
-  applicationName: siteConfig.name,
-  icons: {
-    icon: [{ url: "/images/Favicon.png", type: "image/png" }],
-    shortcut: "/images/Favicon.png",
-    apple: "/images/Favicon.png"
-  },
-  keywords: [
-    "Eye Care Clinic in Kulasekharam",
-    "Eye Checkup",
-    "Eye Examination",
-    "Vision Testing",
-    "Contact Lenses",
-    "Optical Store",
-    "Retina Screening",
-    "Premium Eyewear"
-  ],
-  alternates: {
-    canonical: "/"
-  },
-  robots: {
-    index: false,
-    follow: false,
-    googleBot: {
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSiteSettings();
+  const seo = settings.defaultSeo;
+  const faviconUrl = resolveFaviconUrl(settings);
+
+  return {
+    metadataBase: new URL(settings.siteUrl),
+    title: {
+      default: seo?.metaTitle || `${settings.clinicName} | Eye Care Clinic in ${settings.city}`,
+      template: `%s | ${settings.clinicName}`
+    },
+    description: seo?.metaDescription,
+    applicationName: settings.clinicName,
+    icons: {
+      icon: [{ url: faviconUrl, type: "image/png" }],
+      shortcut: faviconUrl,
+      apple: faviconUrl
+    },
+    keywords: [
+      `Eye Care Clinic in ${settings.city}`,
+      "Eye Checkup",
+      "Eye Examination",
+      "Vision Testing",
+      "Contact Lenses",
+      "Optical Store",
+      "Retina Screening",
+      "Premium Eyewear"
+    ],
+    alternates: {
+      canonical: seo?.canonicalUrl || "/"
+    },
+    robots: {
       index: false,
-      follow: false
+      follow: false,
+      googleBot: {
+        index: false,
+        follow: false
+      }
+    },
+    openGraph: {
+      title: seo?.metaTitle || settings.clinicName,
+      description: seo?.metaDescription,
+      url: "/",
+      siteName: settings.clinicName,
+      type: "website",
+      locale: "en_IN"
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: settings.clinicName,
+      description: seo?.metaDescription
     }
-  },
-  openGraph: {
-    title: "Blue Phoenix Eye Care & Opticals | Eye Checkup & Premium Eyewear",
-    description:
-      "Call or WhatsApp Blue Phoenix Eye Care & Opticals for professional eye examinations, vision testing, contact lens guidance, retina screening and premium eyewear in Kulasekharam.",
-    url: "/",
-    siteName: siteConfig.name,
-    type: "website",
-    locale: "en_IN"
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Blue Phoenix Eye Care & Opticals",
-    description: siteConfig.description
-  }
-};
+  };
+}
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -79,7 +86,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable}`}>
-      <body>{children}</body>
+      <body>
+        <PreviewBanner />
+        {children}
+      </body>
     </html>
   );
 }
