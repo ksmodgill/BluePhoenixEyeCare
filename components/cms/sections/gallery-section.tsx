@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { GalleryLightbox } from "@/components/cms/gallery-lightbox";
 import { CtaButtonLink } from "@/components/cms/cta-button-link";
 import { Reveal } from "@/components/reveal";
 import { SectionShell } from "@/components/section-shell";
@@ -15,17 +16,19 @@ type Props = {
 
 type GalleryTileItem = GalleryItemData & { src: string };
 
-function GalleryTile({ item }: { item: GalleryTileItem }) {
+function GalleryTile({ item, onOpen }: { item: GalleryTileItem; onOpen: () => void }) {
   return (
     <article className={`gallery-tile gallery-tile--${item.size || "medium"}`}>
-      <Image
-        src={item.src}
-        width={760}
-        height={620}
-        loading="lazy"
-        sizes="(max-width: 760px) 86vw, (max-width: 1024px) 45vw, 390px"
-        alt={item.alt || item.title}
-      />
+      <button type="button" className="gallery-tile__trigger" onClick={onOpen} aria-label={`View ${item.title}`}>
+        <Image
+          src={item.src}
+          width={760}
+          height={620}
+          loading="lazy"
+          sizes="(max-width: 760px) 86vw, (max-width: 1024px) 45vw, 390px"
+          alt={item.alt || item.title}
+        />
+      </button>
       <span>
         <strong>{item.title}</strong>
       </span>
@@ -36,6 +39,7 @@ function GalleryTile({ item }: { item: GalleryTileItem }) {
 export function GallerySectionCms({ data, settings }: Props) {
   const categories = data.categories || ["All"];
   const [activeCategory, setActiveCategory] = useState(categories[0] || "All");
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   const items = useMemo(
     () =>
@@ -53,6 +57,20 @@ export function GallerySectionCms({ data, settings }: Props) {
 
     return items.filter((item) => item.category === activeCategory);
   }, [activeCategory, items]);
+
+  useEffect(() => {
+    setLightboxIndex(null);
+  }, [activeCategory]);
+
+  const lightboxItems = useMemo(
+    () =>
+      filteredItems.map((item) => ({
+        src: item.src,
+        title: item.title,
+        alt: item.alt || item.title
+      })),
+    [filteredItems]
+  );
 
   const { header } = data;
 
@@ -80,8 +98,12 @@ export function GallerySectionCms({ data, settings }: Props) {
           </div>
 
           <div className="gallery-masonry" aria-live="polite">
-            {filteredItems.map((item) => (
-              <GalleryTile key={`${item.title}-${item.category}`} item={item} />
+            {filteredItems.map((item, index) => (
+              <GalleryTile
+                key={`${item.title}-${item.category}`}
+                item={item}
+                onOpen={() => setLightboxIndex(index)}
+              />
             ))}
           </div>
 
@@ -127,6 +149,13 @@ export function GallerySectionCms({ data, settings }: Props) {
           ) : null}
         </div>
       </Reveal>
+
+      <GalleryLightbox
+        items={lightboxItems}
+        activeIndex={lightboxIndex}
+        onClose={() => setLightboxIndex(null)}
+        onNavigate={setLightboxIndex}
+      />
     </SectionShell>
   );
 }
