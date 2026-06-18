@@ -39,7 +39,7 @@ export function getClient(preview = false) {
   return sanityClient;
 }
 
-const defaultRevalidate = process.env.NODE_ENV === "development" ? 0 : 3600;
+const defaultRevalidate = process.env.NODE_ENV === "development" ? 0 : 60;
 
 export async function sanityFetch<T>({
   query,

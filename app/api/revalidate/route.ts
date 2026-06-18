@@ -1,22 +1,42 @@
 import { revalidatePath, revalidateTag } from "next/cache";
 import { type NextRequest, NextResponse } from "next/server";
+import { parseBody } from "next-sanity/webhook";
 import { revalidateSecret } from "@/lib/sanity/env";
 
-export async function POST(request: NextRequest) {
-  const secret = request.nextUrl.searchParams.get("secret");
+const CACHE_TAGS = ["homepage", "siteSettings", "header", "footer", "globalUi"] as const;
 
-  if (!revalidateSecret || secret !== revalidateSecret) {
-    return NextResponse.json({ message: "Invalid secret" }, { status: 401 });
-  }
-
-  const body = await request.json().catch(() => ({}));
-  const tags = Array.isArray(body.tags) ? body.tags : ["homepage", "siteSettings", "header", "footer", "globalUi"];
-
-  for (const tag of tags) {
+function revalidateSite() {
+  for (const tag of CACHE_TAGS) {
     revalidateTag(tag, "max");
   }
 
   revalidatePath("/");
+}
 
-  return NextResponse.json({ revalidated: true, tags, now: Date.now() });
+export async function POST(request: NextRequest) {
+  if (!revalidateSecret) {
+    return NextResponse.json({ message: "Missing SANITY_REVALIDATE_SECRET" }, { status: 500 });
+  }
+
+  const manualSecret = request.nextUrl.searchParams.get("secret");
+  if (manualSecret === revalidateSecret) {
+    revalidateSite();
+    return NextResponse.json({ revalidated: true, source: "manual", now: Date.now() });
+  }
+
+  const { isValidSignature, body } = await parseBody(request, revalidateSecret, true);
+
+  if (!isValidSignature) {
+    return NextResponse.json({ message: "Invalid signature" }, { status: 401 });
+  }
+
+  revalidateSite();
+
+  return NextResponse.json({
+    revalidated: true,
+    source: "webhook",
+    documentType: body?._type,
+    documentId: body?._id,
+    now: Date.now()
+  });
 }
