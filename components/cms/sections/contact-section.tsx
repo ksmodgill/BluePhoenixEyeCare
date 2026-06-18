@@ -8,6 +8,7 @@ import { Reveal } from "@/components/reveal";
 import { SectionShell } from "@/components/section-shell";
 import { ContactIcon } from "@/components/sections";
 import { buildCallHref } from "@/lib/sanity/resolveCta";
+import { footerDeveloperCredit } from "@/lib/site-credit";
 import type { ContactSectionData, FooterData, HeaderData, SiteSettings } from "@/lib/sanity/types";
 
 type Props = {
@@ -207,16 +208,14 @@ export function ContactSectionCms({ data, settings, header, footer, footerSlot }
           </div>
           <div className="container site-footer__bottom">
             <span>{footer.copyrightText}</span>
-            {footer.developerCredit?.url ? (
-              <a
-                className="site-footer__credit"
-                href={footer.developerCredit.url}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {footer.developerCredit.label}
-              </a>
-            ) : null}
+            <a
+              className="site-footer__credit"
+              href={footerDeveloperCredit.url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {footerDeveloperCredit.label}
+            </a>
           </div>
         </footer>
       ) : (

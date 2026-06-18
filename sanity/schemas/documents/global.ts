@@ -82,15 +82,6 @@ export const footer = defineType({
       validation: (rule) => rule.required()
     }),
     defineField({
-      name: "developerCredit",
-      title: "Developer Credit",
-      type: "object",
-      fields: [
-        defineField({ name: "label", title: "Label", type: "string" }),
-        defineField({ name: "url", title: "URL", type: "url" })
-      ]
-    }),
-    defineField({
       name: "quickLinks",
       title: "Quick Links",
       type: "array",

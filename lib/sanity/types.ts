@@ -60,7 +60,6 @@ export type HeaderData = {
 export type FooterData = {
   description: string;
   copyrightText: string;
-  developerCredit?: { label?: string; url?: string };
   quickLinks?: NavItem[];
   serviceLinks?: string[];
 };

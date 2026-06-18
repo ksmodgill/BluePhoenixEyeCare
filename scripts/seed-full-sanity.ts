@@ -221,7 +221,8 @@ async function seed() {
     _id: "siteSettings",
     _type: "siteSettings",
     singletonKey: "siteSettings",
-    ...settings
+    ...settings,
+    weeklySchedule: withKeys(settings.weeklySchedule, "schedule")
   });
 
   tx.createOrReplace({

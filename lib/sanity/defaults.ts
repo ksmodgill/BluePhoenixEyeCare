@@ -72,7 +72,6 @@ export const defaultSiteData: SiteData = {
     description:
       "Professional eye care, accurate vision testing and premium optical solutions for families across Kulasekharam.",
     copyrightText: "© 2026 Blue Phoenix Eye Care & Opticals. All rights reserved.",
-    developerCredit: { label: "Designed and Developed by Sintyz.com", url: "https://sintyz.com" },
     quickLinks: [
       { label: "Home", sectionId: "home" },
       { label: "About", sectionId: "about" },

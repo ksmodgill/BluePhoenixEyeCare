@@ -73,7 +73,6 @@ export const headerQuery = `*[_type == "header"][0]{
 export const footerQuery = `*[_type == "footer"][0]{
   description,
   copyrightText,
-  developerCredit{label, url},
   quickLinks[]{label, sectionId, url, openInNewTab},
   serviceLinks
 }`;
