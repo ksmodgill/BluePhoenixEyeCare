@@ -7,7 +7,7 @@ import { resolveBrandImage } from "@/lib/sanity/brand";
 import { Reveal } from "@/components/reveal";
 import { SectionShell } from "@/components/section-shell";
 import { ContactIcon } from "@/components/sections";
-import { buildCallHref } from "@/lib/sanity/resolveCta";
+import { buildCallHref, buildWhatsappHref } from "@/lib/sanity/resolveCta";
 import { footerDeveloperCredit } from "@/lib/site-credit";
 import { FooterSocialLinks } from "@/components/cms/footer-social-links";
 import type { ContactSectionData, FooterData, HeaderData, SiteSettings } from "@/lib/sanity/types";
@@ -23,6 +23,7 @@ type Props = {
 export function ContactSectionCms({ data, settings, header, footer, footerSlot }: Props) {
   const { header: sectionHeader } = data;
   const callHref = buildCallHref(settings.primaryPhone);
+  const whatsappHref = buildWhatsappHref(settings.whatsappNumber, settings.whatsappDefaultMessage);
   const logoSrc = resolveBrandImage(settings, header);
 
   return (
@@ -80,13 +81,19 @@ export function ContactSectionCms({ data, settings, header, footer, footerSlot }
                   </p>
                 </div>
               </article>
-              <article className="contact-detail-card">
+              <a
+                className="contact-detail-card"
+                href={whatsappHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`WhatsApp ${settings.clinicName}`}
+              >
                 <span aria-hidden="true"><ContactIcon name="whatsapp" /></span>
                 <div>
                   <strong>WhatsApp</strong>
                   <p>{settings.whatsappNumber}</p>
                 </div>
-              </article>
+              </a>
               <article className="contact-detail-card contact-detail-card--hours">
                 <span aria-hidden="true"><ContactIcon name="clock" /></span>
                 <div>
