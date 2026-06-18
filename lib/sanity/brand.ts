@@ -4,10 +4,11 @@ import type { HeaderData, SanityImage, SiteSettings } from "./types";
 export function resolveBrandImage(
   settings: SiteSettings,
   header?: HeaderData,
-  fallback = "/images/Logo.png"
+  fallback = "/images/Logo.png",
+  width = 640
 ): string {
-  const override = getImageUrl(header?.logoOverride);
-  const logo = getImageUrl(settings.logo);
+  const override = getImageUrl(header?.logoOverride, width);
+  const logo = getImageUrl(settings.logo, width);
   return override || logo || fallback;
 }
 

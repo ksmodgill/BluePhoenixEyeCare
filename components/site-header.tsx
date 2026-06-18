@@ -14,6 +14,7 @@ type SiteHeaderProps = {
 
 export function SiteHeader({ settings, header }: SiteHeaderProps) {
   const logoSrc = resolveBrandImage(settings, header);
+  const isSvgLogo = /\.svg($|[?#])/i.test(logoSrc);
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeHref, setActiveHref] = useState("#home");
@@ -74,10 +75,11 @@ export function SiteHeader({ settings, header }: SiteHeaderProps) {
         <a className="brand brand--image" href="#home" aria-label={`${settings.clinicName} home`}>
           <Image
             src={logoSrc}
-            width={260}
-            height={71}
+            width={360}
+            height={99}
             priority
-            sizes="(max-width: 760px) 190px, 260px"
+            unoptimized={isSvgLogo}
+            sizes="(max-width: 760px) 236px, 300px"
             alt={header.logoOverride?.alt || settings.logo?.alt || `${settings.clinicName} logo`}
             className="brand__logo"
           />
