@@ -5,7 +5,7 @@ import { SchemaMarkup } from "@/components/schema-markup";
 import { SiteHeader } from "@/components/site-header";
 import { getSiteData } from "@/lib/sanity/fetchers";
 
-export const revalidate = process.env.NODE_ENV === "development" ? 0 : 3600;
+export const revalidate = 3600;
 
 export default async function Home() {
   const { settings, header, footer, globalUi, homepage } = await getSiteData();
