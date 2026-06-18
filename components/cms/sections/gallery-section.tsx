@@ -13,20 +13,22 @@ type Props = {
   settings: SiteSettings;
 };
 
-function GalleryTile({ item }: { item: GalleryItemData & { src: string } }) {
+type GalleryTileItem = GalleryItemData & { src: string };
+
+function GalleryTile({ item }: { item: GalleryTileItem }) {
   return (
-    <article className={`gallery-card gallery-card--${item.size || "medium"}`}>
+    <article className={`gallery-tile gallery-tile--${item.size || "medium"}`}>
       <Image
         src={item.src}
-        width={640}
-        height={480}
+        width={760}
+        height={620}
         loading="lazy"
-        sizes="(max-width: 760px) 92vw, (max-width: 1200px) 44vw, 420px"
+        sizes="(max-width: 760px) 86vw, (max-width: 1024px) 45vw, 390px"
         alt={item.alt || item.title}
       />
-      <div className="gallery-card__overlay">
+      <span>
         <strong>{item.title}</strong>
-      </div>
+      </span>
     </article>
   );
 }
@@ -79,26 +81,30 @@ export function GallerySectionCms({ data, settings }: Props) {
 
           <div className="gallery-masonry" aria-live="polite">
             {filteredItems.map((item) => (
-              <GalleryTile key={item.title} item={item} />
+              <GalleryTile key={`${item.title}-${item.category}`} item={item} />
             ))}
           </div>
 
-          {data.showcaseBlocks?.map((block) => (
-            <div key={block.title} className="gallery-showcase__section">
-              <h3>{block.title}</h3>
-              {block.content ? <p>{block.content}</p> : null}
-              {block.items?.length ? (
-                <div className="gallery-showcase__tags">
-                  {block.items.map((item) => (
-                    <span key={item}>{item}</span>
-                  ))}
-                </div>
-              ) : null}
+          {data.showcaseBlocks?.length ? (
+            <div className="gallery-section-cards">
+              {data.showcaseBlocks.map((block) => (
+                <article key={block.title} className="gallery-info-card">
+                  <h3>{block.title}</h3>
+                  {block.content ? <p>{block.content}</p> : null}
+                  {block.items?.length ? (
+                    <div>
+                      {block.items.map((item) => (
+                        <span key={item}>{item}</span>
+                      ))}
+                    </div>
+                  ) : null}
+                </article>
+              ))}
             </div>
-          ))}
+          ) : null}
 
           {data.highlightBadges?.length ? (
-            <div className="gallery-trust-badges">
+            <div className="gallery-highlight-strip" aria-label="Clinic visual highlights">
               {data.highlightBadges.map((badge) => (
                 <span key={badge}>{badge}</span>
               ))}
@@ -106,12 +112,18 @@ export function GallerySectionCms({ data, settings }: Props) {
           ) : null}
 
           {data.trustBanner ? (
-            <div className="gallery-trust-banner">
-              {data.trustBanner.eyebrow ? <span className="eyebrow">{data.trustBanner.eyebrow}</span> : null}
-              {data.trustBanner.heading ? <h3>{data.trustBanner.heading}</h3> : null}
-              {data.trustBanner.description ? <p>{data.trustBanner.description}</p> : null}
-              <CtaButtonLink cta={data.trustBanner.primaryCta} settings={settings} />
-            </div>
+            <article className="gallery-trust-banner">
+              <div>
+                {data.trustBanner.eyebrow ? <span className="eyebrow">{data.trustBanner.eyebrow}</span> : null}
+                {data.trustBanner.heading ? <h3>{data.trustBanner.heading}</h3> : null}
+                {data.trustBanner.description ? <p>{data.trustBanner.description}</p> : null}
+              </div>
+              {data.trustBanner.primaryCta ? (
+                <div className="gallery-trust-banner__actions">
+                  <CtaButtonLink cta={data.trustBanner.primaryCta} settings={settings} />
+                </div>
+              ) : null}
+            </article>
           ) : null}
         </div>
       </Reveal>
