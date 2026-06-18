@@ -92,8 +92,6 @@ export const defaultSiteData: SiteData = {
     stickyBarHeading: "Need eye care help?",
     stickyBarCallLabel: "Call",
     stickyBarWhatsappLabel: "WhatsApp",
-    showFloatingCredit: true,
-    floatingCredit: { label: "Designed by Sintyz", url: "https://sintyz.com" },
     showBackToTop: true
   },
   homepage: {

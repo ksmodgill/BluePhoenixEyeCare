@@ -128,21 +128,6 @@ export const globalUi = defineType({
       initialValue: "WhatsApp"
     }),
     defineField({
-      name: "showFloatingCredit",
-      title: "Show Floating Credit",
-      type: "boolean",
-      initialValue: true
-    }),
-    defineField({
-      name: "floatingCredit",
-      title: "Floating Credit",
-      type: "object",
-      fields: [
-        defineField({ name: "label", title: "Label", type: "string" }),
-        defineField({ name: "url", title: "URL", type: "url" })
-      ]
-    }),
-    defineField({
       name: "showBackToTop",
       title: "Show Back to Top",
       type: "boolean",

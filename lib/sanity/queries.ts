@@ -81,8 +81,6 @@ export const globalUiQuery = `*[_type == "globalUi"][0]{
   stickyBarHeading,
   stickyBarCallLabel,
   stickyBarWhatsappLabel,
-  showFloatingCredit,
-  floatingCredit{label, url},
   showBackToTop
 }`;
 

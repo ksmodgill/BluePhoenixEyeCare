@@ -68,8 +68,6 @@ export type GlobalUiData = {
   stickyBarHeading?: string;
   stickyBarCallLabel?: string;
   stickyBarWhatsappLabel?: string;
-  showFloatingCredit?: boolean;
-  floatingCredit?: { label?: string; url?: string };
   showBackToTop?: boolean;
 };
 
