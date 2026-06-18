@@ -31,7 +31,7 @@
   );
   --container: 1280px;
   --section-space: clamp(4.5rem, 8vw, 7.5rem);
-  --header-height: 96px;
+  --header-height: 80px;
 }
 
 * {
@@ -348,8 +348,12 @@ h6 {
 }
 
 .site-header .brand__logo {
-  width: clamp(13.25rem, 24vw, 18.75rem);
-  max-height: 4.25rem;
+  width: 200px;
+  height: 50px;
+  max-width: 200px;
+  max-height: 50px;
+  object-fit: contain;
+  object-position: left center;
 }
 
 .brand--footer .brand__logo {
@@ -3061,11 +3065,6 @@ h6 {
     display: none;
   }
 
-  .site-header .brand__logo {
-    width: clamp(11.25rem, 54vw, 14.75rem);
-    max-height: 3.75rem;
-  }
-
   .hero {
     min-height: 90vh;
     padding-top: 3.25rem;
@@ -3999,7 +3998,7 @@ h6 {
 }
 
 .site-header--scrolled .site-header__inner {
-  min-height: 76px;
+  min-height: 68px;
 }
 
 .desktop-nav a,
@@ -4526,7 +4525,7 @@ h6 {
   }
 
   .site-header--scrolled .site-header__inner {
-    min-height: 72px;
+    min-height: 68px;
   }
 
   .site-footer__bottom {

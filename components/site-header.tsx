@@ -75,11 +75,11 @@ export function SiteHeader({ settings, header }: SiteHeaderProps) {
         <a className="brand brand--image" href="#home" aria-label={`${settings.clinicName} home`}>
           <Image
             src={logoSrc}
-            width={360}
-            height={99}
+            width={200}
+            height={50}
             priority
             unoptimized={isSvgLogo}
-            sizes="(max-width: 760px) 236px, 300px"
+            sizes="200px"
             alt={header.logoOverride?.alt || settings.logo?.alt || `${settings.clinicName} logo`}
             className="brand__logo"
           />
