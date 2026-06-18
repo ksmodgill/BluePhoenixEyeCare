@@ -5,6 +5,8 @@ import { getSiteSettings } from "@/lib/sanity/fetchers";
 import { resolveFaviconUrl } from "@/lib/sanity/brand";
 import "./globals.css";
 
+export const dynamic = "force-dynamic";
+
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",

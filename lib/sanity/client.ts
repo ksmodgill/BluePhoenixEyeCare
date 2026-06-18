@@ -5,7 +5,7 @@ export const sanityClient = createClient({
   projectId: projectId || "placeholder",
   dataset,
   apiVersion,
-  useCdn: !token,
+  useCdn: false,
   token,
   perspective: "published",
   stega: {
@@ -39,18 +39,14 @@ export function getClient(preview = false) {
   return sanityClient;
 }
 
-const defaultRevalidate = process.env.NODE_ENV === "development" ? 0 : 60;
-
 export async function sanityFetch<T>({
   query,
   params = {},
-  revalidate = defaultRevalidate,
   tags = [],
   preview = false
 }: {
   query: string;
   params?: QueryParams;
-  revalidate?: number | false;
   tags?: string[];
   preview?: boolean;
 }): Promise<T | null> {
@@ -61,9 +57,7 @@ export async function sanityFetch<T>({
   }
 
   return client.fetch<T>(query, params, {
-    next: {
-      revalidate: revalidate === false ? false : revalidate,
-      tags
-    }
+    cache: "no-store",
+    next: { tags }
   });
 }

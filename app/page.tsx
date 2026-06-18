@@ -5,7 +5,7 @@ import { SchemaMarkup } from "@/components/schema-markup";
 import { SiteHeader } from "@/components/site-header";
 import { getSiteData } from "@/lib/sanity/fetchers";
 
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
 export default async function Home() {
   const { settings, header, footer, globalUi, homepage } = await getSiteData();
