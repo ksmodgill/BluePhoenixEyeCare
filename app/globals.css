@@ -40,10 +40,13 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 body {
   margin: 0;
+  max-width: 100%;
+  overflow-x: clip;
   background: var(--color-light-bg);
   color: var(--color-text);
   font-family: var(--font-inter), system-ui, sans-serif;
@@ -2160,8 +2163,8 @@ h6 {
 }
 
 .featured-brands {
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
+  width: 100%;
+  max-width: 100%;
   background: #d0f4ff;
   padding: var(--section-space) 0 clamp(1.75rem, 3.5vw, 2.5rem);
   overflow: hidden;
@@ -2193,7 +2196,7 @@ h6 {
   align-items: center;
   gap: clamp(2.5rem, 6vw, 5rem);
   padding-inline: clamp(1rem, 3vw, 2rem);
-  animation: featured-brands-scroll 45s linear infinite;
+  animation: featured-brands-scroll 25s linear infinite;
   will-change: transform;
 }
 
@@ -2361,6 +2364,7 @@ h6 {
   inset: 0;
   z-index: 200;
   display: grid;
+  overflow: hidden;
   place-items: center;
   padding: clamp(1rem, 3vw, 2rem);
 }
@@ -3008,17 +3012,21 @@ h6 {
 
   .mobile-nav__actions .button {
     width: 100%;
-    display: inline-grid;
+    display: inline-flex;
+    flex-wrap: nowrap;
+    align-items: center;
     justify-content: center;
+    gap: 0.35rem;
     min-height: 46px;
     margin-top: 0;
     border: 0;
     border-radius: 16px;
     background: var(--gradient-brand);
     color: var(--color-white);
-    padding: 0.72rem 0.9rem;
+    padding: 0.72rem 0.65rem;
     font-size: 0.84rem;
     font-weight: 700;
+    white-space: nowrap;
   }
 
   .mobile-nav__actions .button--secondary {
