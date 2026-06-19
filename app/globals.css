@@ -2972,14 +2972,10 @@ h6 {
     transform: translateY(-14px) scale(0.98);
     pointer-events: none;
     border: 0;
-    border-top: 1px solid rgba(205, 235, 255, 0.86);
     border-radius: 0;
-    background:
-      radial-gradient(circle at top right, rgba(63, 214, 255, 0.18), transparent 16rem),
-      var(--color-white);
+    background: var(--color-white);
     padding: calc(var(--header-height) + 1rem) 1rem calc(7rem + env(safe-area-inset-bottom));
     opacity: 0;
-    box-shadow: 0 22px 60px rgba(8, 43, 122, 0.16);
     transition:
       opacity 160ms ease,
       transform 160ms ease;
@@ -4075,6 +4071,13 @@ h6 {
 
 .site-header--menu-open {
   z-index: 130;
+  border-bottom-color: rgba(13, 71, 199, 0.08);
+  background: var(--color-white);
+  box-shadow: 0 6px 24px rgba(8, 43, 122, 0.08);
+}
+
+.site-header--menu-open .site-header__inner {
+  background: var(--color-white);
 }
 
 .site-header--scrolled .site-header__inner {
