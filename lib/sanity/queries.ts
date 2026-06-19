@@ -110,6 +110,11 @@ const sectionProjection = `
     imagePath,
     alt
   },
+  brands[]{
+    image{${imageFragment}},
+    imagePath,
+    alt
+  },
   reviews[]->{
     _id,
     authorName,

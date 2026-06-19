@@ -10,6 +10,7 @@ import {
   faqItem,
   galleryItem,
   galleryShowcaseBlock,
+  brandLogoItem,
   weeklyScheduleItem,
   portableTextBlock
 } from "./objects/content";
@@ -30,6 +31,7 @@ import {
   benefitsSection,
   finalCtaSection,
   gallerySection,
+  featuredBrandsSection,
   reviewsSection,
   faqSection,
   contactSection,
@@ -53,6 +55,7 @@ export const schemaTypes = [
   faqItem,
   galleryItem,
   galleryShowcaseBlock,
+  brandLogoItem,
   weeklyScheduleItem,
   portableTextBlock,
   siteSettings,
@@ -71,6 +74,7 @@ export const schemaTypes = [
   benefitsSection,
   finalCtaSection,
   gallerySection,
+  featuredBrandsSection,
   reviewsSection,
   faqSection,
   contactSection,

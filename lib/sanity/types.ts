@@ -325,6 +325,16 @@ export type ContactSectionData = {
   };
 };
 
+export type FeaturedBrandsSectionData = {
+  _type: "featuredBrandsSection";
+  _id: string;
+  brands?: Array<{
+    image?: SanityImage;
+    imagePath?: string;
+    alt?: string;
+  }>;
+};
+
 export type HomepageSection =
   | HeroSectionData
   | TrustedVisionSectionData
@@ -337,6 +347,7 @@ export type HomepageSection =
   | BenefitsSectionData
   | FinalCtaSectionData
   | GallerySectionData
+  | FeaturedBrandsSectionData
   | ReviewsSectionData
   | FaqSectionData
   | ContactSectionData;

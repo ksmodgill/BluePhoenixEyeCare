@@ -8,6 +8,7 @@ import { LocalSeoBlockCms } from "./sections/local-seo-block";
 import { SymptomsSectionCms } from "./sections/symptoms-section";
 import { VisitCtaSectionCms } from "./sections/visit-cta-section";
 import { BenefitsSectionCms } from "./sections/benefits-section";
+import { FeaturedBrandsSectionCms } from "./sections/featured-brands-section";
 import { GallerySectionCms } from "./sections/gallery-section";
 import { ReviewsSectionCms } from "./sections/reviews-section";
 import { FaqSectionCms } from "./sections/faq-section";
@@ -33,6 +34,8 @@ export function SectionRenderer({ sections, settings, header, footer }: SectionR
             return <QualityFeaturesSectionCms key={section._id} data={section} settings={settings} />;
           case "servicesSection":
             return <ServicesSectionCms key={section._id} data={section} settings={settings} />;
+          case "featuredBrandsSection":
+            return <FeaturedBrandsSectionCms key={section._id} data={section} />;
           case "ctaBannerSection":
             return <CtaBannerSectionCms key={section._id} data={section} settings={settings} />;
           case "localSeoBlock":

@@ -231,6 +231,22 @@ export const defaultSiteData: SiteData = {
         }
       },
       {
+        _type: "featuredBrandsSection",
+        _id: "default-brands",
+        brands: [
+          { imagePath: "/images/Brands/Ray Ban.png", alt: "Ray-Ban" },
+          { imagePath: "/images/Brands/Oakley.png", alt: "Oakley" },
+          { imagePath: "/images/Brands/Prada.png", alt: "Prada" },
+          { imagePath: "/images/Brands/Carrera.png", alt: "Carrera" },
+          { imagePath: "/images/Brands/Montblanc.png", alt: "Montblanc" },
+          { imagePath: "/images/Brands/Zeiss.png", alt: "Zeiss" },
+          { imagePath: "/images/Brands/Essilor.png", alt: "Essilor" },
+          { imagePath: "/images/Brands/Crizal.png", alt: "Crizal" },
+          { imagePath: "/images/Brands/Bausch and Lomb.png", alt: "Bausch and Lomb" },
+          { imagePath: "/images/Brands/Puma.png", alt: "Puma" }
+        ]
+      },
+      {
         _type: "symptomsSection",
         _id: "default-symptoms",
         header: {

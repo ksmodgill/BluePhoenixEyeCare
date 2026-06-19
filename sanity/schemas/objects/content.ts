@@ -169,6 +169,46 @@ export const galleryItem = defineType({
   ]
 });
 
+export const brandLogoItem = defineType({
+  name: "brandLogoItem",
+  title: "Brand Logo",
+  type: "object",
+  fields: [
+    defineField({
+      name: "image",
+      title: "Logo Image",
+      type: "image",
+      options: { hotspot: true },
+      fields: [
+        defineField({
+          name: "alt",
+          title: "Alt Text",
+          type: "string",
+          description: "For accessibility only — not shown on the site"
+        })
+      ]
+    }),
+    defineField({
+      name: "imagePath",
+      title: "Image Path (fallback)",
+      type: "string",
+      description: "Public folder path e.g. /images/Brands/Ray Ban.png"
+    }),
+    defineField({
+      name: "alt",
+      title: "Alt Text (fallback)",
+      type: "string",
+      description: "For accessibility only — not shown on the site"
+    })
+  ],
+  preview: {
+    select: { media: "image", title: "alt" },
+    prepare({ media, title }) {
+      return { title: title || "Brand logo", media };
+    }
+  }
+});
+
 export const galleryShowcaseBlock = defineType({
   name: "galleryShowcaseBlock",
   title: "Gallery Showcase Block",

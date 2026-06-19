@@ -5,6 +5,7 @@ const sectionTypes = [
   { type: "trustedVisionSection" },
   { type: "qualityFeaturesSection" },
   { type: "servicesSection" },
+  { type: "featuredBrandsSection" },
   { type: "ctaBannerSection" },
   { type: "localSeoBlock" },
   { type: "symptomsSection" },

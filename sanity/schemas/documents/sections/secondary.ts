@@ -357,6 +357,24 @@ export const contactSection = defineType({
   preview: { select: { title: "internalTitle" } }
 });
 
+export const featuredBrandsSection = defineType({
+  name: "featuredBrandsSection",
+  title: "Featured Brands Section",
+  type: "document",
+  fields: [
+    ...sectionFields,
+    defineField({
+      name: "brands",
+      title: "Brand Logos",
+      description: "Logos appear in an auto-scrolling full-width slider. No heading or text is shown on the site.",
+      type: "array",
+      of: [defineArrayMember({ type: "brandLogoItem" })],
+      validation: (rule) => rule.min(1)
+    })
+  ],
+  preview: { select: { title: "internalTitle" } }
+});
+
 export const testimonial = defineType({
   name: "testimonial",
   title: "Testimonial",

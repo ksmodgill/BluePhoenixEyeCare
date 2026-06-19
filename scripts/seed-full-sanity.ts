@@ -47,6 +47,7 @@ const SECTION_TITLES: Record<string, string> = {
   trustedVisionSection: "Trusted Vision Care",
   qualityFeaturesSection: "Quality Features",
   servicesSection: "Services",
+  featuredBrandsSection: "Featured Brand",
   symptomsSection: "Symptoms",
   gallerySection: "Gallery",
   reviewsSection: "Reviews",
@@ -142,6 +143,13 @@ function prepareSection(section: (typeof defaultSiteData.homepage.sections)[numb
         localSeo: transformLocalSeo(
           rest.localSeo as { heading?: string; plainParagraphs?: string[] } | undefined
         )
+      };
+
+    case "featuredBrandsSection":
+      return {
+        ...base,
+        ...rest,
+        brands: withKeys(rest.brands as Record<string, unknown>[] | undefined, "brand")
       };
 
     case "symptomsSection":

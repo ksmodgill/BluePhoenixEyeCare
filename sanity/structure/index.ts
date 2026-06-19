@@ -12,8 +12,12 @@ const singletonItems = [
 
 const sectionTypeNames = sectionTypesList.map((item) => item.type);
 
+const SECTION_MENU_TITLES: Record<string, string> = {
+  featuredBrandsSection: "Featured Brand"
+};
+
 function formatSectionTitle(type: string) {
-  return type.replace(/Section$/, "").replace(/([A-Z])/g, " $1").trim();
+  return SECTION_MENU_TITLES[type] || type.replace(/Section$/, "").replace(/([A-Z])/g, " $1").trim();
 }
 
 function sectionListItems(S: Parameters<StructureResolver>[0]) {
