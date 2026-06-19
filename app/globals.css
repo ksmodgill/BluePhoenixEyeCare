@@ -2163,21 +2163,17 @@ h6 {
   width: 100vw;
   margin-left: calc(50% - 50vw);
   background: #d0f4ff;
-  padding: clamp(2rem, 4vw, 3rem) 0 clamp(1.75rem, 3.5vw, 2.5rem);
+  padding: var(--section-space) 0 clamp(1.75rem, 3.5vw, 2.5rem);
   overflow: hidden;
   border-block: 1px solid rgba(13, 71, 199, 0.08);
 }
 
-.featured-brands__title {
-  margin: 0 0 clamp(1.25rem, 3vw, 2rem);
-  padding-inline: 1rem;
+.featured-brands .section__header {
+  margin-bottom: clamp(1.75rem, 4vw, 3rem);
+}
+
+.featured-brands .section__header h2 {
   color: var(--color-secondary);
-  font-family: var(--font-poppins), system-ui, sans-serif;
-  font-size: clamp(1.35rem, 2.2vw, 1.85rem);
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  line-height: 1.15;
-  text-align: center;
 }
 
 .featured-brands__viewport {

@@ -233,6 +233,13 @@ export const defaultSiteData: SiteData = {
       {
         _type: "featuredBrandsSection",
         _id: "default-brands",
+        header: {
+          eyebrow: "Premium Eyewear Partners",
+          title: "Featured Brand",
+          intro:
+            "Discover globally trusted eyewear and lens brands available at Blue Phoenix Eye Care & Opticals in Kulasekharam.",
+          align: "center"
+        },
         brands: [
           { imagePath: "/images/Brands/Ray Ban.png", alt: "Ray-Ban" },
           { imagePath: "/images/Brands/Oakley.png", alt: "Oakley" },

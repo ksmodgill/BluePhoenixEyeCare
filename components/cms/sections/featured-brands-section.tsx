@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useMemo } from "react";
+import { Reveal } from "@/components/reveal";
 import { resolveSectionImage } from "@/lib/sanity/image-helpers";
 import type { FeaturedBrandsSectionData } from "@/lib/sanity/types";
 
@@ -16,6 +17,14 @@ type BrandSlide = {
 };
 
 export function FeaturedBrandsSectionCms({ data }: Props) {
+  const header = {
+    eyebrow: data.header?.eyebrow ?? "Premium Eyewear Partners",
+    title: data.header?.title ?? "Featured Brand",
+    intro: data.header?.intro,
+    align: data.header?.align ?? "center",
+    sectionId: data.header?.sectionId
+  };
+
   const brands = useMemo(() => {
     return (data.brands || [])
       .map((brand, index) => {
@@ -38,12 +47,22 @@ export function FeaturedBrandsSectionCms({ data }: Props) {
   }
 
   const loop = [...brands, ...brands];
+  const align = header.align === "left" ? "left" : "center";
 
   return (
-    <section className="featured-brands" aria-labelledby="featured-brands-title">
-      <h2 id="featured-brands-title" className="featured-brands__title">
-        Featured Brand
-      </h2>
+    <section
+      className="featured-brands"
+      id={header.sectionId}
+      aria-labelledby={header.sectionId ? `${header.sectionId}-title` : undefined}
+    >
+      <div className="container">
+        <Reveal className={`section__header section__header--${align}`}>
+          <span className="eyebrow">{header.eyebrow}</span>
+          <h2 id={header.sectionId ? `${header.sectionId}-title` : undefined}>{header.title}</h2>
+          {header.intro ? <p>{header.intro}</p> : null}
+        </Reveal>
+      </div>
+
       <div className="featured-brands__viewport">
         <div className="featured-brands__track">
           {loop.map((brand, index) => (

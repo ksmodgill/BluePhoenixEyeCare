@@ -364,9 +364,15 @@ export const featuredBrandsSection = defineType({
   fields: [
     ...sectionFields,
     defineField({
+      name: "header",
+      title: "Section Header",
+      type: "sectionHeader",
+      validation: (rule) => rule.required()
+    }),
+    defineField({
       name: "brands",
       title: "Brand Logos",
-      description: "Logos appear in an auto-scrolling full-width slider. No heading or text is shown on the site.",
+      description: "Logos appear in the auto-scrolling full-width slider below the section heading.",
       type: "array",
       of: [defineArrayMember({ type: "brandLogoItem" })],
       validation: (rule) => rule.min(1)

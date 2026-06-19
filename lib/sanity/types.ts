@@ -328,6 +328,7 @@ export type ContactSectionData = {
 export type FeaturedBrandsSectionData = {
   _type: "featuredBrandsSection";
   _id: string;
+  header?: SectionHeader;
   brands?: Array<{
     image?: SanityImage;
     imagePath?: string;
