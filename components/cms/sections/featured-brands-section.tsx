@@ -40,7 +40,10 @@ export function FeaturedBrandsSectionCms({ data }: Props) {
   const loop = [...brands, ...brands];
 
   return (
-    <section className="featured-brands" aria-label="Featured eyewear brands">
+    <section className="featured-brands" aria-labelledby="featured-brands-title">
+      <h2 id="featured-brands-title" className="featured-brands__title">
+        Featured Brand
+      </h2>
       <div className="featured-brands__viewport">
         <div className="featured-brands__track">
           {loop.map((brand, index) => (
@@ -48,10 +51,10 @@ export function FeaturedBrandsSectionCms({ data }: Props) {
               <Image
                 src={brand.src}
                 alt={brand.alt}
-                width={200}
-                height={64}
+                width={250}
+                height={80}
                 className="featured-brands__logo"
-                sizes="(max-width: 760px) 140px, 200px"
+                sizes="(max-width: 760px) 150px, 250px"
               />
             </div>
           ))}
