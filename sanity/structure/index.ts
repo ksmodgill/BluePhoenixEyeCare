@@ -13,11 +13,35 @@ const singletonItems = [
 const sectionTypeNames = sectionTypesList.map((item) => item.type);
 
 const SECTION_MENU_TITLES: Record<string, string> = {
-  featuredBrandsSection: "Featured Brand"
+  heroSection: "Hero",
+  trustedVisionSection: "Trusted Vision",
+  qualityFeaturesSection: "Quality Features",
+  servicesSection: "Services",
+  featuredBrandsSection: "Featured Brand",
+  ctaBannerSection: "CTA Banner",
+  localSeoBlock: "Local SEO Block",
+  symptomsSection: "Symptoms",
+  visitCtaSection: "Visit CTA",
+  benefitsSection: "Benefits",
+  finalCtaSection: "Final CTA",
+  gallerySection: "Gallery",
+  reviewsSection: "Reviews",
+  faqSection: "FAQ",
+  contactSection: "Contact"
 };
 
 function formatSectionTitle(type: string) {
-  return SECTION_MENU_TITLES[type] || type.replace(/Section$/, "").replace(/([A-Z])/g, " $1").trim();
+  if (SECTION_MENU_TITLES[type]) {
+    return SECTION_MENU_TITLES[type];
+  }
+
+  return type
+    .replace(/Section$/, "")
+    .replace(/([A-Z])/g, " $1")
+    .trim()
+    .split(/\s+/)
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
 }
 
 function sectionListItems(S: Parameters<StructureResolver>[0]) {
