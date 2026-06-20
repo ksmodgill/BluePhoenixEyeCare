@@ -48,16 +48,16 @@ export function HeroSectionCms({ data, settings }: Props) {
           ) : null}
         </Reveal>
 
-        <Reveal className="hero__visual" delay={0.12}>
+        <Reveal className="hero__visual md:block" delay={0.12}>
           <div className="hero__shape hero__shape--ring" aria-hidden="true" />
           <div className="hero__shape hero__shape--dot" aria-hidden="true" />
-          <div className="hero__image-wrap">
+          <div className="hero__image-wrap !w-[calc(100%+1.25rem)] !-ml-2.5 rounded-2xl">
             <Image
               src={heroSrc}
               width={500}
               height={500}
               priority
-              sizes="(max-width: 760px) 92vw, (max-width: 1200px) 44vw, 520px"
+              sizes="(max-width: 760px) 100vw, (max-width: 1200px) 44vw, 520px"
               alt={data.heroImage?.alt || "Professional eye care at Blue Phoenix Eye Care and Opticals"}
               className="hero__image"
             />
