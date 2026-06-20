@@ -6,10 +6,10 @@ export const siteConfig = {
   contactHref: "#contact",
   phoneDisplay: "9445887612",
   whatsappDisplay: "9445887612",
-  hoursDisplay: "Monday to Saturday: 9 am–8:30 pm; Sunday: Closed",
+  hoursDisplay: "Monday to Saturday: 9 am–8:30 pm; Sunday: By Appointment",
   hoursSchedule: [
     { day: "Saturday", time: "9 am–8:30 pm" },
-    { day: "Sunday", time: "Closed" },
+    { day: "Sunday", time: "By Appointment" },
     { day: "Monday", time: "9 am–8:30 pm" },
     { day: "Tuesday", time: "9 am–8:30 pm" },
     { day: "Wednesday", time: "9 am–8:30 pm" },

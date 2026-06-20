@@ -40,7 +40,7 @@ export const defaultSiteData: SiteData = {
     googleReviewsUrl: "https://maps.app.goo.gl/rojuqmQfvdHRz5Dr7",
     weeklySchedule: [
       { day: "Saturday", time: "9 am–8:30 pm" },
-      { day: "Sunday", time: "Closed", closed: true },
+      { day: "Sunday", time: "By Appointment", closed: false },
       { day: "Monday", time: "9 am–8:30 pm" },
       { day: "Tuesday", time: "9 am–8:30 pm" },
       { day: "Wednesday", time: "9 am–8:30 pm" },
