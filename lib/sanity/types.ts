@@ -254,6 +254,7 @@ export type FinalCtaSectionData = {
 };
 
 export type GalleryItemData = {
+  _key?: string;
   title: string;
   category: string;
   image?: SanityImage;
@@ -318,6 +319,7 @@ export type ContactSectionData = {
   mapStripLabels?: string[];
   googleRatingLabel?: string;
   googleRatingText?: string;
+  googleRatingHighlights?: string[];
   localSeo?: {
     heading?: string;
     content?: PortableTextValue;

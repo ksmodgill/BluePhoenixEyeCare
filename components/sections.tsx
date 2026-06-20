@@ -705,7 +705,7 @@ export function HeroSection() {
         <Reveal className="hero__copy">
           <span className="eyebrow">Eye Clinic in Kulasekharam</span>
           <h1 id="hero-title">
-            <span>Eye Care That Helps</span>
+            <span>Eye Care That Helps</span>{" "}
             <span>You See Life Clearly</span>
           </h1>
           <p>
@@ -1218,6 +1218,7 @@ export function ContactSection() {
             </div>
 
             <div className="contact-detail-list">
+              <div className="contact-detail-top">
               <article className="contact-detail-card contact-detail-card--address">
                 <span aria-hidden="true"><ContactIcon name="location" /></span>
                 <div>
@@ -1225,39 +1226,63 @@ export function ContactSection() {
                   <p>{siteConfig.addressLines.map((line) => <span key={line}>{line}<br /></span>)}</p>
                 </div>
               </article>
-              <article className="contact-detail-card">
+              <article className="contact-detail-card contact-detail-card--numbers">
                 <span aria-hidden="true"><ContactIcon name="phone" /></span>
                 <div>
-                  <strong>Phone Number</strong>
-                  <p>
-                    <a href={siteConfig.callHref} aria-label="Call Blue Phoenix Eye Care and Opticals">
-                      {siteConfig.phoneDisplay}
-                    </a>
+                  <strong>Contact Numbers</strong>
+                  <dl className="contact-numbers-list">
+                    <div>
+                      <dt>Phone Number</dt>
+                      <dd>
+                        <a href={siteConfig.callHref} aria-label="Call Blue Phoenix Eye Care and Opticals">
+                          {siteConfig.phoneDisplay}
+                        </a>
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>Landline Number</dt>
+                      <dd>
+                        <a href={`tel:${siteConfig.landlineDisplay}`} aria-label="Call Blue Phoenix Eye Care and Opticals landline">
+                          {siteConfig.landlineDisplay}
+                        </a>
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>WhatsApp</dt>
+                      <dd>
+                        <a
+                          href={siteConfig.whatsappHref}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label="WhatsApp Blue Phoenix Eye Care and Opticals"
+                        >
+                          {siteConfig.whatsappDisplay}
+                        </a>
+                      </dd>
+                    </div>
+                  </dl>
+                  <p className="contact-numbers-note">
+                    Call, WhatsApp or landline for appointments, eye testing, contact lens guidance and eyewear support.
                   </p>
                 </div>
               </article>
-              <article className="contact-detail-card">
-                <span aria-hidden="true"><ContactIcon name="whatsapp" /></span>
-                <div>
-                  <strong>WhatsApp</strong>
-                  <p>{siteConfig.whatsappDisplay}</p>
-                </div>
-              </article>
-              <article className="contact-detail-card contact-detail-card--hours">
-                <span aria-hidden="true"><ContactIcon name="clock" /></span>
-                <div>
-                  <strong>Clinic Hours</strong>
-                  <dl className="contact-hours-list">
-                    {siteConfig.hoursSchedule.map((item) => (
-                      <div key={item.day}>
-                        <dt>{item.day}</dt>
-                        <dd>{item.time}</dd>
-                      </div>
-                    ))}
-                  </dl>
-                </div>
-              </article>
-              <a
+              </div>
+              <div className="contact-detail-bottom">
+                <article className="contact-detail-card contact-detail-card--hours">
+                  <span aria-hidden="true"><ContactIcon name="clock" /></span>
+                  <div>
+                    <strong>Clinic Hours</strong>
+                    <dl className="contact-hours-list">
+                      {siteConfig.hoursSchedule.map((item) => (
+                        <div key={item.day}>
+                          <dt>{item.day}</dt>
+                          <dd>{item.time}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  </div>
+                </article>
+                <a
                 className="contact-detail-card contact-detail-card--rating"
                 href={siteConfig.googleReviewsHref}
                 target="_blank"
@@ -1267,9 +1292,17 @@ export function ContactSection() {
                 <span aria-hidden="true"><ContactIcon name="star" /></span>
                 <div>
                   <strong>Google Rating</strong>
-                  <p>5.0 <span className="rating-star">★</span> · Local patient feedback</p>
+                  <p className="contact-rating-score">5.0 <span className="rating-star">★</span> · Local patient feedback</p>
+                  <ul className="contact-rating-highlights">
+                    <li>5-star rated by local patients</li>
+                    <li>Trusted eye care clinic in Kulasekharam</li>
+                    <li>Verified Google Business listing</li>
+                    <li>Read genuine patient reviews online</li>
+                  </ul>
+                  <span className="contact-rating-link">View patient reviews on Google →</span>
                 </div>
               </a>
+              </div>
             </div>
 
             <div className="contact-assurance-list" aria-label="Contact support highlights">

@@ -14,7 +14,30 @@ type Props = {
   settings: SiteSettings;
 };
 
-type GalleryTileItem = GalleryItemData & { src: string };
+type GalleryTileItem = GalleryItemData & { src: string; id: string };
+
+function normalizeCategory(value: string | undefined) {
+  return (value || "").trim().toLowerCase();
+}
+
+function buildCategories(items: GalleryItemData[], cmsCategories?: string[]) {
+  const fromCms = (cmsCategories || []).map((category) => category.trim()).filter(Boolean);
+  const withoutAll = fromCms.filter((category) => normalizeCategory(category) !== "all");
+  const categories = ["All", ...withoutAll];
+
+  for (const item of items) {
+    const category = item.category?.trim();
+    if (!category) {
+      continue;
+    }
+
+    if (!categories.some((entry) => normalizeCategory(entry) === normalizeCategory(category))) {
+      categories.push(category);
+    }
+  }
+
+  return categories;
+}
 
 function GalleryTile({ item, onOpen }: { item: GalleryTileItem; onOpen: () => void }) {
   return (
@@ -37,25 +60,34 @@ function GalleryTile({ item, onOpen }: { item: GalleryTileItem; onOpen: () => vo
 }
 
 export function GallerySectionCms({ data, settings }: Props) {
-  const categories = data.categories || ["All"];
-  const [activeCategory, setActiveCategory] = useState(categories[0] || "All");
-  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
-
   const items = useMemo(
     () =>
-      (data.galleryItems || []).map((item) => ({
+      (data.galleryItems || []).map((item, index) => ({
         ...item,
+        id: item._key || `${item.title}-${item.category}-${index}`,
         src: resolveSectionImage(item.image, item.imagePath, "/images/hero.png")
       })),
     [data.galleryItems]
   );
 
+  const categories = useMemo(() => buildCategories(data.galleryItems || [], data.categories), [data.categories, data.galleryItems]);
+  const [activeCategory, setActiveCategory] = useState("All");
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (!categories.some((category) => normalizeCategory(category) === normalizeCategory(activeCategory))) {
+      setActiveCategory("All");
+    }
+  }, [activeCategory, categories]);
+
   const filteredItems = useMemo(() => {
-    if (activeCategory === "All") {
+    if (normalizeCategory(activeCategory) === "all") {
       return items;
     }
 
-    return items.filter((item) => item.category === activeCategory);
+    return items.filter(
+      (item) => normalizeCategory(item.category) === normalizeCategory(activeCategory)
+    );
   }, [activeCategory, items]);
 
   useEffect(() => {
@@ -89,7 +121,7 @@ export function GallerySectionCms({ data, settings }: Props) {
               <button
                 key={category}
                 type="button"
-                aria-pressed={activeCategory === category}
+                aria-pressed={normalizeCategory(activeCategory) === normalizeCategory(category)}
                 onClick={() => setActiveCategory(category)}
               >
                 {category}
@@ -98,13 +130,17 @@ export function GallerySectionCms({ data, settings }: Props) {
           </div>
 
           <div className="gallery-masonry" aria-live="polite">
-            {filteredItems.map((item, index) => (
-              <GalleryTile
-                key={`${item.title}-${item.category}`}
-                item={item}
-                onOpen={() => setLightboxIndex(index)}
-              />
-            ))}
+            {filteredItems.length ? (
+              filteredItems.map((item, index) => (
+                <GalleryTile
+                  key={item.id}
+                  item={item}
+                  onOpen={() => setLightboxIndex(index)}
+                />
+              ))
+            ) : (
+              <p className="gallery-empty">No images in this category yet.</p>
+            )}
           </div>
 
           {data.showcaseBlocks?.length ? (

@@ -6,6 +6,7 @@ export const siteConfig = {
   contactHref: "#contact",
   phoneDisplay: "9445887612",
   whatsappDisplay: "9445887612",
+  landlineDisplay: "04651287612",
   hoursDisplay: "Monday to Saturday: 9 am–8:30 pm; Sunday: By Appointment",
   hoursSchedule: [
     { day: "Saturday", time: "9 am–8:30 pm" },

@@ -23,6 +23,7 @@ type Props = {
 export function ContactSectionCms({ data, settings, header, footer, footerSlot }: Props) {
   const { header: sectionHeader } = data;
   const callHref = buildCallHref(settings.primaryPhone);
+  const landlineHref = settings.secondaryPhone ? buildCallHref(settings.secondaryPhone) : undefined;
   const whatsappHref = buildWhatsappHref(settings.whatsappNumber, settings.whatsappDefaultMessage);
   const logoSrc = resolveBrandImage(settings, header);
 
@@ -56,6 +57,7 @@ export function ContactSectionCms({ data, settings, header, footer, footerSlot }
             </div>
 
             <div className="contact-detail-list">
+              <div className="contact-detail-top">
               <article className="contact-detail-card contact-detail-card--address">
                 <span aria-hidden="true"><ContactIcon name="location" /></span>
                 <div>
@@ -70,60 +72,94 @@ export function ContactSectionCms({ data, settings, header, footer, footerSlot }
                   </p>
                 </div>
               </article>
-              <article className="contact-detail-card">
+
+              <article className="contact-detail-card contact-detail-card--numbers">
                 <span aria-hidden="true"><ContactIcon name="phone" /></span>
                 <div>
-                  <strong>Phone Number</strong>
-                  <p>
-                    <a href={callHref} aria-label={`Call ${settings.clinicName}`}>
-                      {settings.primaryPhone}
-                    </a>
-                  </p>
-                </div>
-              </article>
-              <a
-                className="contact-detail-card"
-                href={whatsappHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`WhatsApp ${settings.clinicName}`}
-              >
-                <span aria-hidden="true"><ContactIcon name="whatsapp" /></span>
-                <div>
-                  <strong>WhatsApp</strong>
-                  <p>{settings.whatsappNumber}</p>
-                </div>
-              </a>
-              <article className="contact-detail-card contact-detail-card--hours">
-                <span aria-hidden="true"><ContactIcon name="clock" /></span>
-                <div>
-                  <strong>Clinic Hours</strong>
-                  <dl className="contact-hours-list">
-                    {settings.weeklySchedule?.map((item) => (
-                      <div key={item.day}>
-                        <dt>{item.day}</dt>
-                        <dd>{item.closed ? "Closed" : item.time}</dd>
+                  <strong>Contact Numbers</strong>
+                  <dl className="contact-numbers-list">
+                    <div>
+                      <dt>Phone Number</dt>
+                      <dd>
+                        <a href={callHref} aria-label={`Call ${settings.clinicName}`}>
+                          {settings.primaryPhone}
+                        </a>
+                      </dd>
+                    </div>
+                    {settings.secondaryPhone ? (
+                      <div>
+                        <dt>Landline Number</dt>
+                        <dd>
+                          <a href={landlineHref} aria-label={`Call ${settings.clinicName} landline`}>
+                            {settings.secondaryPhone}
+                          </a>
+                        </dd>
                       </div>
-                    ))}
+                    ) : null}
+                    <div>
+                      <dt>WhatsApp</dt>
+                      <dd>
+                        <a
+                          href={whatsappHref}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`WhatsApp ${settings.clinicName}`}
+                        >
+                          {settings.whatsappNumber}
+                        </a>
+                      </dd>
+                    </div>
                   </dl>
-                </div>
-              </article>
-              <a
-                className="contact-detail-card contact-detail-card--rating"
-                href={settings.googleReviewsUrl || "#"}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`Open ${settings.clinicName} Google Business profile`}
-              >
-                <span aria-hidden="true"><ContactIcon name="star" /></span>
-                <div>
-                  <strong>{data.googleRatingLabel || "Google Rating"}</strong>
-                  <p>
-                    {data.googleRatingText || "5.0"}{" "}
-                    <span className="rating-star">★</span> · Local patient feedback
+                  <p className="contact-numbers-note">
+                    Call, WhatsApp or landline for appointments, eye testing, contact lens guidance and eyewear support.
                   </p>
                 </div>
-              </a>
+              </article>
+              </div>
+
+              <div className="contact-detail-bottom">
+                <article className="contact-detail-card contact-detail-card--hours">
+                  <span aria-hidden="true"><ContactIcon name="clock" /></span>
+                  <div>
+                    <strong>Clinic Hours</strong>
+                    <dl className="contact-hours-list">
+                      {settings.weeklySchedule?.map((item) => (
+                        <div key={item.day}>
+                          <dt>{item.day}</dt>
+                          <dd>{item.closed ? "Closed" : item.time}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  </div>
+                </article>
+                <a
+                  className="contact-detail-card contact-detail-card--rating"
+                  href={settings.googleReviewsUrl || "#"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Open ${settings.clinicName} Google Business profile`}
+                >
+                  <span aria-hidden="true"><ContactIcon name="star" /></span>
+                  <div>
+                    <strong>{data.googleRatingLabel || "Google Rating"}</strong>
+                    <p className="contact-rating-score">{data.googleRatingText || "5.0 ★ · Local patient feedback"}</p>
+                    <ul className="contact-rating-highlights">
+                      {(data.googleRatingHighlights?.length
+                        ? data.googleRatingHighlights
+                        : [
+                            "5-star rated by local patients",
+                            "Trusted eye care clinic in Kulasekharam",
+                            "Verified Google Business listing",
+                            "Read genuine patient reviews online"
+                          ]
+                      ).map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                    <span className="contact-rating-link">View patient reviews on Google →</span>
+                  </div>
+                </a>
+              </div>
             </div>
 
             {data.assuranceItems?.length ? (

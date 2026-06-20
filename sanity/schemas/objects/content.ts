@@ -131,6 +131,15 @@ export const galleryItem = defineType({
       name: "category",
       title: "Category",
       type: "string",
+      options: {
+        list: [
+          { title: "Equipment", value: "Equipment" },
+          { title: "Examination Room", value: "Examination Room" },
+          { title: "Optical Showcase", value: "Optical Showcase" },
+          { title: "Clinic Exterior", value: "Clinic Exterior" },
+          { title: "Reception", value: "Reception" }
+        ]
+      },
       validation: (rule) => rule.required()
     }),
     defineField({

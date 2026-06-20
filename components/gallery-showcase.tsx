@@ -187,9 +187,13 @@ export function GalleryShowcase() {
       </div>
 
       <div className="gallery-masonry" aria-live="polite">
-        {filteredItems.map((item) => (
-          <GalleryTile key={item.title} item={item} />
-        ))}
+        {filteredItems.length ? (
+          filteredItems.map((item) => (
+            <GalleryTile key={`${item.title}-${item.category}-${item.image}`} item={item} />
+          ))
+        ) : (
+          <p className="gallery-empty">No images in this category yet.</p>
+        )}
       </div>
 
       <div className="gallery-section-cards">

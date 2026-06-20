@@ -73,7 +73,7 @@ export const siteSettings = defineType({
     }),
     defineField({
       name: "secondaryPhone",
-      title: "Secondary Phone",
+      title: "Landline Number",
       type: "string",
       group: "contact"
     }),

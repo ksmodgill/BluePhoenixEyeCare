@@ -21,7 +21,7 @@ export function HeroSectionCms({ data, settings }: Props) {
         <Reveal className="hero__copy">
           <span className="eyebrow">{data.badge}</span>
           <h1 id="hero-title">
-            <span>{data.headingLine1}</span>
+            <span>{data.headingLine1}</span>{" "}
             <span>{data.headingLine2}</span>
           </h1>
           <p>{data.description}</p>

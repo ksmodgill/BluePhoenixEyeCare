@@ -339,6 +339,12 @@ export const contactSection = defineType({
       type: "string"
     }),
     defineField({
+      name: "googleRatingHighlights",
+      title: "Google Rating Highlights",
+      type: "array",
+      of: [{ type: "string" }]
+    }),
+    defineField({
       name: "localSeo",
       title: "Local SEO Block",
       type: "object",

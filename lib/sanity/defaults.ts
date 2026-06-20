@@ -21,6 +21,7 @@ export const defaultSiteData: SiteData = {
     tagline: "Professional eye care and premium optical solutions in Kulasekharam",
     siteUrl: "https://bluephoenixeyecare.com",
     primaryPhone: "9445887612",
+    secondaryPhone: "04651287612",
     whatsappNumber: "9445887612",
     whatsappDefaultMessage: "Hello, I would like to ask about eye care services.",
     addressLines: [
@@ -429,6 +430,12 @@ export const defaultSiteData: SiteData = {
         mapStripLabels: ["Blue Phoenix Eye Care & Opticals", "Google Maps verified location", "Kulasekharam"],
         googleRatingLabel: "Google Rating",
         googleRatingText: "5.0 ★ · Local patient feedback",
+        googleRatingHighlights: [
+          "5-star rated by local patients",
+          "Trusted eye care clinic in Kulasekharam",
+          "Verified Google Business listing",
+          "Read genuine patient reviews online"
+        ],
         localSeo: {
           heading: "Eye Care Clinic in Kulasekharam",
           plainParagraphs: [

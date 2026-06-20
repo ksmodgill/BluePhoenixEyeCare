@@ -105,7 +105,10 @@ const sectionProjection = `
     cta{${ctaFragment}}
   },
   galleryItems[]{
-    ...,
+    _key,
+    title,
+    category,
+    size,
     image{${imageFragment}},
     imagePath,
     alt
